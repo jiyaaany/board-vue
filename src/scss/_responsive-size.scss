@@ -1,0 +1,13 @@
+@each $prop, $abbrev in (font-size: font-size, border-width: border, line-height: line-height, border-radius: rounded, width: w) {
+    @each $size, $length in $responsive-sizes {
+        .#{$abbrev}-#{$size} {
+            @if $prop == width {
+                #{$prop}: $length !important;
+				// flex: 0 0 $length !important;
+				max-width: $length !important;
+			} @else {
+                #{$prop}: $length !important;
+            }
+        }
+    }
+}

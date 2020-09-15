@@ -1,1 +1,18 @@
 $font-family-sans-serif: "BMEULJIRO", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+// Responsive Sizes (해상도 720 기준)
+$responsive-size: 1px;
+$responsive-sizes: () !default;
+@for $i from 1 through 120 {
+	$responsive-sizes: map-merge($responsive-sizes, ($i: $i * $responsive-size));
+}
+$spacers: $responsive-sizes;
+$sizes: map_merge(
+        $responsive-sizes,
+        (
+            'relative-25': 25%,
+            'relative-50': 50%,
+            'relative-75': 75%,
+            'relative-100': 100%
+        )
+);
