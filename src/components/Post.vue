@@ -1,35 +1,34 @@
 <template>
-    <div class="col-4">
+    <div class="col-4 mt-50">
+        <!-- <header>
+            <slot name="header"></slot>
+        </header> -->
         <b-card
             no-body
             img-src="http://lorempixel.com/300/200"
             img-alt="Image"
             img-top
-        >
+        >            
             <b-card-body>
                 <router-link :to="{ name: 'Detail', params: { id: post.id }}">
                     <b-card-title v-text="post.title"></b-card-title>
                 </router-link>
                 <b-card-text v-text="post.body"></b-card-text>
             </b-card-body>
-            
-             
-        <!-- 
-            .d-flex -> display: flex
-            .align-items-center -> align-items: center;
-            .justify-content-center -> justify-content: center;
-         -->
 
             <b-card-footer class="d-flex align-items-center">
                 <i class="xi-clock-o mr-1"></i>
-                {{fromNow}}
+                {{ post.reg_date | moment('YYYY-MM-DD') }}
             </b-card-footer>
         </b-card>
+
+        <!-- <footer>
+            <slot name="footer"></slot>
+        </footer> -->
     </div>
 </template>
-<script>
-import moment from 'moment';
 
+<script>
 export default {
     props: {
         post: {
@@ -37,11 +36,5 @@ export default {
             required: true,
         },
     },
-
-    computed: {
-        fromNow() {
-            return moment(this.post.reg_date).fromNow();
-        }
-    },
 }
-</script>
+</script>  

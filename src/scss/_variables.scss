@@ -16,3 +16,15 @@ $sizes: map_merge(
             'relative-100': 100%
         )
 );
+
+$headings-margin-bottom: 0;
+$modal-footer-margin-between: 0;
+$modal-content-border-radius: 8px;
+$blue: #0047bb;
+$gray-100: #eeeeee;
+$light: white;
+$theme-colors: (
+    "gray-100":    $gray-100,
+    "light": $light
+);
+

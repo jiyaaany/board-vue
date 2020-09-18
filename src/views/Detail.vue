@@ -1,42 +1,89 @@
 <template>
-    <div class="container">
+    <div v-if="post" class="container">
         <div class="row pt-5">
             <div class="col-8 offset-2">
-                <h3 class="text-center mb-3">제목</h3>
+                <h3 class="text-center mb-3" v-text="post.title">제목</h3>
+                <p v-text="post.body"></p>
                 <p>
-                    내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.
-                </p>
-                <p>
-                    2020-09-11
+                    {{ post.reg_date | moment('YYYY-MM-DD') }}
                 </p>
                 <div class="d-flex justify-content-end">
-                    <router-link :to="{ name: 'Form', params: {id: 1}}">
-                        <b-button variant="warning mr-4">수정</b-button>
+                    <router-link :to="{ name: 'Form', params: { id: post.id }}">
+                        <b-button variant="primary mr-4">수정</b-button>
                     </router-link>
-                    <b-button @click.prevent="remove" variant="danger">삭제</b-button>
+                    <b-button @click="$bvModal.show('removeModal')" variant="danger">삭제</b-button>
                 </div>
-                <b-modal id="modal-1" centered v-model="isShow" :hide-header="true" footer-class="p-0" body-class="p-0">
-                    <p class="my-4">Hello from modal!</p>
-                </b-modal>
+                <AcceptModal id="removeModal" text="삭제하시겠습니까?" :event="remove"></AcceptModal>
             </div>
         </div>
+        <transition-group tag="div" class="row" leave-active-class="animate__animated animate__fadeOutRight" >
+            <Comment v-for="comment in comments" :key="comment.id" :comment="comment" @update="updateComment" @remove="removeComment"></Comment>
+        </transition-group>
     </div>
 </template>
+
 <script>
+import Comment from '@/components/Comment';
+import AcceptModal from '@/components/AcceptModal';
+import axios from '@/plugins/axios';
+
 export default {
-    data: () => ({
-        isShow: true
+    data: (vue) => ({
+        comments: [
+            {
+                id: 1,
+                user: '홍길동',
+                body: 'body1',
+                reg_date: vue.$moment().format('YYYY-MM-DD')
+            }, 
+            {
+                id: 2,
+                user: '김지연',
+                body: 'body2',
+                reg_date: vue.$moment().format('YYYY-MM-DD')
+            }, 
+            {
+                id: 3,
+                user: '정형석',
+                body: 'body3',
+                reg_date: vue.$moment().format('YYYY-MM-DD')
+            }
+
+        ],
+        post: undefined
     }),
 
+    components: {
+        Comment,
+        AcceptModal
+    },
+
     created() {
-        // console.log(this.$route);
+        axios.get(`post/${this.$route.params.id}`)
+            .then(post => this.post = post);
     },
 
     methods: {
         remove() {
-            console.log("삭제");
-            this.$bvModal.show('modal-1');
-            
+            axios.delete(`post/${this.post.id}`)
+                .then(() => {
+                    alert('삭제되었습니다.');
+                    this.$router.push({ name: 'Home' });
+                });
+        },
+
+        updateComment(comment) {
+            this.comments = this.comments.map(value => value.id === comment.id ? comment : value);
+
+            // this.comments.forEach(element => {
+            //     if (element.id == id) {
+            //         element.body = body;
+            //     }
+            // });
+        },
+
+        removeComment(comment) {
+            this.comments = this.comments.filter(value => value.id != comment.id);
         }
     }
 }

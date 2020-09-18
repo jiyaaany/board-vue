@@ -3,9 +3,17 @@
 @import '~bootstrap-vue/src/index';
 @import '~xeicon/xeicon.min.css';
 @import './responsive-size';
-
+@import '~animate.css/animate.css';
 
 @font-face {
     font-family: 'BMEULJIRO';
     src: url('../assets/BMEULJIRO.otf') format('opentype');
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.max-width {
+    max-width: 530px;
 }

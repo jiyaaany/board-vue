@@ -8,7 +8,6 @@
 
 <script>
 import Post from '@/components/Post';
-//import moment from 'moment';
 import axios from '@/plugins/axios';
 
 export default {
@@ -26,18 +25,12 @@ export default {
         posts: []
     }),
 
-    components: {
-        Post
-    },
+    components: { Post },
 
     /*async * */ created() {
-        this.$root.isWriting = false;
-
         axios.get('post')
-            .then(response => this.posts = response)
+            .then(posts => this.posts = posts)
             .catch(message => alert(message));
-
-        console.log(this.posts);
         // try {
         //     const response = await /* * */ axios.get('post');
         // } catch (message) {

@@ -28,7 +28,11 @@
 </template>
 
 <script>
+import axios from '@/plugins/axios.js';
+
 export default {
+    name: 'Form',
+
     data: () => ({
         title: '',
         body: '',
@@ -62,21 +66,33 @@ export default {
         // false -> false, 0, '', null, undefined
 
         if (this.$route.params.id) {
-            this.edit = true;
-            this.title = '제목제목';
-            this.body = '내용내용';
-            this.$root.isWriting = false;
+            axios.get(`post/${this.$route.params.id}`)
+                .then(post => {
+                    this.edit = true;
+                    this.title = post.title;
+                    this.body = post.body;
+                    this.$root.isWriting = false;
+                });
         } else {
             this.$root.isWriting = true;
         }
     },
 
+    destroyed() {
+        this.$root.isWriting = false;
+    },
+
     methods: {
         submit() {
             if (this.edit) {
-                console.log('수정중');
+                axios.put(`post/${this.$route.params.id}`, this.$data)
+                    .then(post => {
+                        alert('수정 되었습니다.');
+                        this.$router.push({ name: 'Detail', params: { id: post.id } });
+                    });
             } else {
-                console.log('글쓰기');
+                axios.post('post', this.$data)
+                    .then(post => this.$router.push({ name: 'Detail', params: { id: post.id } }));
             }
         },
 
