@@ -1,5 +1,5 @@
 # board-vue-cli
-Vue CLI를 사용해 게시판 만들기 프로젝트
+Vue CLI를 사용한 게시판 프로젝트
 
 [게시판 바로가기](https://jiyaaany.github.io/board-vue/)
 
