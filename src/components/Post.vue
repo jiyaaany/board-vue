@@ -5,7 +5,7 @@
         </header> -->
         <b-card
             no-body
-            img-src="http://lorempixel.com/300/200"
+            img-src="https://picsum.photos/300/200"
             img-alt="Image"
             img-top
         >            

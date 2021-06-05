@@ -5,7 +5,7 @@
                 <template slot="header">
                     <div class="d-flex align-items-center">
                         <i class="xi-user-o font-size-22"></i>
-                        <h6 class="ml-3" v-text="comment.user"></h6>    
+                        <h6 class="ml-3" v-text="comment.name"></h6>    
                         <i @click="$bvModal.show(`EditModal${ comment.id }`)" class="xi-list-dot ml-auto"></i>
                     </div>
                 </template>

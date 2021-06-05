@@ -28,28 +28,8 @@ import AcceptModal from '@/components/AcceptModal';
 import axios from '@/plugins/axios';
 
 export default {
-    data: (vue) => ({
-        comments: [
-            {
-                id: 1,
-                user: '홍길동',
-                body: 'body1',
-                reg_date: vue.$moment().format('YYYY-MM-DD')
-            }, 
-            {
-                id: 2,
-                user: '김지연',
-                body: 'body2',
-                reg_date: vue.$moment().format('YYYY-MM-DD')
-            }, 
-            {
-                id: 3,
-                user: '정형석',
-                body: 'body3',
-                reg_date: vue.$moment().format('YYYY-MM-DD')
-            }
-
-        ],
+    data: () => ({
+        comments: undefined,
         post: undefined
     }),
 
@@ -59,13 +39,16 @@ export default {
     },
 
     created() {
-        axios.get(`post/${this.$route.params.id}`)
+        axios.get(`posts/${this.$route.params.id}`)
             .then(post => this.post = post);
+
+        axios.get(`posts/${this.$route.params.id}/comments`)
+            .then(comments => this.comments = comments.map(comment => ({...comment, reg_date: new Date()})));
     },
 
     methods: {
         remove() {
-            axios.delete(`post/${this.post.id}`)
+            axios.delete(`posts/${this.post.id}`)
                 .then(() => {
                     alert('삭제되었습니다.');
                     this.$router.push({ name: 'Home' });

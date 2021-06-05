@@ -28,8 +28,12 @@ export default {
     components: { Post },
 
     /*async * */ created() {
-        axios.get('post')
-            .then(posts => this.posts = posts)
+        axios.get('posts')
+            .then(posts => (
+                this.posts = posts.map(post => {
+                    return ({...post, reg_date: new Date()});
+                })
+            ))
             .catch(message => alert(message));
         // try {
         //     const response = await /* * */ axios.get('post');

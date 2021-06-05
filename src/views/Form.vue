@@ -66,7 +66,7 @@ export default {
         // false -> false, 0, '', null, undefined
 
         if (this.$route.params.id) {
-            axios.get(`post/${this.$route.params.id}`)
+            axios.get(`posts/${this.$route.params.id}`)
                 .then(post => {
                     this.edit = true;
                     this.title = post.title;
@@ -85,13 +85,13 @@ export default {
     methods: {
         submit() {
             if (this.edit) {
-                axios.put(`post/${this.$route.params.id}`, this.$data)
+                axios.put(`posts/${this.$route.params.id}`, this.$data)
                     .then(post => {
                         alert('수정 되었습니다.');
                         this.$router.push({ name: 'Detail', params: { id: post.id } });
                     });
             } else {
-                axios.post('post', this.$data)
+                axios.post('posts', this.$data)
                     .then(post => this.$router.push({ name: 'Detail', params: { id: post.id } }));
             }
         },
