@@ -1,7 +1,7 @@
 # board-vue-cli
 Vue CLI를 사용한 게시판 프로젝트
 
-[게시판 바로가기](https://jiyaaany.github.io/board-vue/)
+[게시판 바로가기](https://jiyaaany.github.io/)
 
 ## 프로젝트 세팅
 1. 의존 패키지 설치
